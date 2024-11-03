@@ -1,5 +1,5 @@
 //
-//  MainViewViewModel.swift
+//  MainViewModel.swift
 //  Todo app
 //
 //  Created by Kacper Wojak on 19/10/2024.
