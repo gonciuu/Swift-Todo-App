@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State var name: String = ""
-    @State var email: String = ""
-    @State var password: String = ""
+    @StateObject var viewModel = RegisterViewModel()
 
     var body: some View {
         VStack {
@@ -20,13 +18,18 @@ struct RegisterView: View {
             )
 
             Form {
-                TextField("Full Name", text: $name)
+                if !viewModel.errorMessage.isEmpty {
+                    Text(viewModel.errorMessage).foregroundStyle(.red)
+                }
+                TextField("Full Name", text: $viewModel.name)
                     .autocorrectionDisabled()
-                TextField("Email Address", text: $email)
+                TextField("Email Address", text: $viewModel.email)
                     .autocapitalization(.none)
                     .autocorrectionDisabled()
-                TextField("Password", text: $password)
-                TLButton(title: "Register", background: .blue) {}
+                SecureField("Password", text: $viewModel.password)
+                TLButton(title: "Register", background: .blue) {
+                    viewModel.register()
+                }
             }.scrollContentBackground(.hidden).frame(height: 250)
                 .offset(y: -50)
 
